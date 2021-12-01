@@ -52,7 +52,7 @@ purchase insurance. Submission fields should include -
 * Company name - The company name. e.g. “Sayata Labs Ltd”.
 * Physical address - The company's main office address. e.g. “177 Huntington Ave, Boston, MA 02115, USA”
 * Annual revenue - The company’s revenue last year in US Dollars. e.g. 1000000.
-* Status - (Either NEW or BOUND): The status of the submission. Default is set to NEW. BOUND means, submission has been
+* Status - (Either NEW or BOUND): The status of the submission. Default is set to NEW. BOUND means submission has been
   bound (insurance coverage is active for that company).
 * Signed application - nullable BLOB. Defaults to null. Holds the PDF of the signed application.
 
