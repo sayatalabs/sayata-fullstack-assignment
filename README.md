@@ -16,8 +16,8 @@ For your convenience we have created empty templates for both applications as pa
 In addition, we have created
 an [Invision Prototype](https://projects.invisionapp.com/d/main?origin=v7#/projects/prototypes/21795414) that contains
 mockups for the various pages required for the client web application.  
-Use the mockups to better understand the required user experience. Bonus points will be awarded to those who match the
-mockups in their solution.  
+Use the mockups as a guide to better understand the required user experience. Bonus points will be awarded to those who
+match the mockups in their solution.  
 Please notice that each mockup can be viewed in multiple modes. The most relevant for you are:
 
 1. Preview mode (`P`) - The interactive mode - Allows you to click on specific visual elements and see what it does.
@@ -27,20 +27,21 @@ Please notice that each mockup can be viewed in multiple modes. The most relevan
    allows you to download it.
 
 You can switch between modes inside a mockup by clicking on the buttons at the bottom center of the screen, or by
-pushing the `P`, `C` and `I` keys on your keyboard.  
+pushing the `P`, `C` and `I` keys on your keyboard.
 
 Login credentials to the invision platform will be sent to you separately.
 
 ## How will we run your program
+
 1. Clone your repository
 2. Start the server
-   1. `cd ./server`
-   2. `pip install -r requirements.txt`
-   3. start main.py
+    1. `cd ./server`
+    2. `pip install -r requirements.txt`
+    3. start main.py
 3. Start the client
-   1. `cd ./client`
-   2. `npm install`
-   3. `npm start`
+    1. `cd ./client`
+    2. `npm install`
+    3. `npm start`
 
 ## Definitions
 
@@ -53,7 +54,7 @@ purchase insurance. Submission fields should include -
 * Annual revenue - The company’s revenue last year in US Dollars. e.g. 1000000.
 * Status - (Either NEW or BOUND): The status of the submission. Default is set to NEW. BOUND means, submission has been
   bound (insurance coverage is active for that company).
-* Signed application - nullable BLOB. Defaults to null. After binding, it should hold the PDF of the signed application.
+* Signed application - nullable BLOB. Defaults to null. Holds the PDF of the signed application.
 
 ## The client side
 
@@ -61,35 +62,35 @@ The client is a React web application that allows the broker to perform the foll
 
 1. List all the submissions in the system.
 2. Create a new submission.
-3. Update an existing submission.
+3. Upload a signed application for a submission.
 4. Bind an existing submission.
 
 For that matter the application should contain the following main pages:
 
 1. [Submissions page](https://projects.invisionapp.com/d/main?origin=v7#/console/21795414/461552116/comments?scrollOffset=0)
-    1. Lists all the existing submissions and their statuses. Clicking a submission will navigate the user to that
+    1. Lists all the existing submissions and their statuses. Clicking a submission will navigate the user to that bind
        submission page.
 2. [Submission page](https://projects.invisionapp.com/d/main?origin=v7#/console/21795414/461552117/comments?scrollOffset=0)
-    1. When creating a new submission - will show the appropriate submission fields and allow filling them to create a
-       new submission.
-    2. When entering an existing submission - will show the appropriate submission fields and allow updating the
-       submission as long as it hasn't been bound. If the submission is already bound - all fields should be disabled.
+    1. Allows filling the appropriate submission fields to create a new submission.
 3. [Bind submission page](https://projects.invisionapp.com/d/main?origin=v7#/console/21795414/461552118/comments?scrollOffset=0)
-    1. List the submission fields for verification, allows uploading a signed application and binding the submission.
+    1. Displays the submission field values for verification, allows uploading a signed application and binding the
+       submission. A submission can't be bound if a signed application hasn't been uploaded.
 
 Once a submission has been bound no further changes may be performed on it.
 
 ## The server side API
 
-Exposes an HTTP based API that allows the client to accomplish the functionality described above. Feel free to design it
-as you’d like.  
+The server is the brain behind this whole operation. It holds all the data and manages it according the system's set of
+rules. It exposes an HTTP based API that allows clients to accomplish the functionality described above. Feel free to
+design it as you’d like.  
 The API does not have to persist data between runs.  
 Multiple clients may call the API at the same time. Assume they all share the same submissions book.
 
 ## General guidelines
 
-* Write code as if you’re shipping it. We’re gonna review and score it based on architecture, quality, cleanliness and
-  coding standards.
+* Write code as if you’re shipping it. We’re going to review and score it based on architecture, quality, cleanliness
+  and coding standards. If you have a time constraint, it would be much smarter to concentrate on good architecture and
+  following coding best practices than on a nice UI and animations.
 * We expect this solution to be written in React (client side) and Python (server side).
 * Bonus points -
     * Got an idea for a cool feature to add? Go for it! We would love to see your creative side.
@@ -97,3 +98,4 @@ Multiple clients may call the API at the same time. Assume they all share the sa
         * Add a login page before the submissions page where the broker can register/login with an email and password
           and be authenticated.
         * Allow each broker to see and manipulate only his/her own submissions.
+    * Implement the UI in a responsive design.
