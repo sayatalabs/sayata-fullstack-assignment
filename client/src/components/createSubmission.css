@@ -1,0 +1,76 @@
+.headline {
+    height: 74px;
+    width: 1920px;
+    border: 1px solid #B7B7B7;
+}
+.headline-text {
+    height: 45px;
+    width: 339.94px;
+    color: #457378;
+    font-family: "Open Sans";
+    font-size: 33px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 45px;
+}
+.fill-text {
+    height: 17px;
+    width: 251px;
+    color: #42767C;
+    font-family: "Open Sans";
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.72px;
+    line-height: 17px;
+}
+.border {
+    box-sizing: border-box;
+    height: 1px;
+    width: 887px;
+    border: 1px solid #B7B7B7;
+    opacity: 0.7;
+}
+.buttons-div {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    margin-left: 72%;
+}
+.button {
+    margin-left: 1px;
+    margin-right: 10px;
+    height: 41px;
+    width: 248px;
+    border-radius: 6px;
+    background-color: #0EABB7;
+    color: #FFFFFF;
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 22px;
+    text-align: center;
+}
+.form {
+    margin-left: 1%;
+}
+
+.labels {
+    display: block;
+}
+.input-fields {
+    width: 418px;
+    height: 21px;
+}
+.button-back {
+    height: 41px;
+    width: 248px;
+    color: #5E5E5E;
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 22px;
+    text-align: center;
+}

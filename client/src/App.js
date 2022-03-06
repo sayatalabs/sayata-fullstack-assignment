@@ -1,24 +1,19 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
-
-function App() {
+import { BrowserRouter as Router, Route,Routes } from 'react-router-dom';
+import Submissions from './components/Submissions'
+import CreateSubmission from './components/CreateSubmission';
+import Bind from './components/BindSubmission'
+import 'bootstrap/dist/css/bootstrap.min.css';
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        <Routes>
+          <Route exact path="/" element={<Submissions/>}/>
+          <Route exact path="/create" element={<CreateSubmission/>}/>
+          <Route exact path="/bound/:id" element={<Bind/>}/>
+        </Routes>
+    </Router>
   );
 }
 
