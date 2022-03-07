@@ -6,10 +6,7 @@ import Table from 'react-bootstrap/esm/Table';
 import FileUploadPage from './UploadPdf' 
 import './bindSubmission.css'
 
-const UPLOAD_FILE_URL = 'http://localhost:8000/api/bind-application/' + id[4];
-var url  = window.location.href;
-var id = url.split('/');
-const GET_SUBMISSION_BY_ID = 'http://localhost:8000/api/submission/' + id[4];
+
 function GoBack() {
     let navigate = useNavigate(); 
     const routeChange = () => { 
@@ -34,12 +31,15 @@ class Bind extends Component  {
         super(props);
         this.state = {
             isFetching: false,
-            submissions: []
+            submissions: [],
         };
     }
-    async  componentDidMount() {
+    async componentDidMount() {
         try {
             this.setState({...this.state, isFetching: true});
+            var url  = window.location.href;
+            var id = url.split('/');
+            const GET_SUBMISSION_BY_ID = 'http://localhost:8000/api/submission/' + id[4];
             const response = await axios.get(GET_SUBMISSION_BY_ID);
             this.setState({submissions: response.data, isFetching: false});
         } catch (e) {
@@ -48,11 +48,13 @@ class Bind extends Component  {
         }
     };
     handleButtonClicked() {
-        console.log(this.state.submission);
+        console.log('FileName:' + this.state.fileName);
+        var url  = window.location.href;
+        var id = url.split('/');
+        const UPLOAD_FILE_URL = 'http://localhost:8000/api/bind-application/' + id[4];
         axios.post(UPLOAD_FILE_URL,this.state.submission,{ mode: 'cors' })
         .then(response => this.setState({submissionId: response.data.id}))
-        .then(alert('Submission Saved!'))
-    }
+    };
     render() {
         const submissions = this.state.submissions;
         return (
@@ -63,7 +65,7 @@ class Bind extends Component  {
                         <h2 className='headline-text'>Bind submission</h2>
                     </div>
                     <div>
-                        <p className="fill-text">PLEASE REVIEW THE SUBMISSION DERAILS AND UPLOAD A SIGNED APPLICATION</p>
+                        <p className="fill-text">PLEASE REVIEW THE SUBMISSION DETAILS AND UPLOAD A SIGNED APPLICATION</p>
                     </div>
                     <Table size="sm">
                         <thead>
@@ -71,7 +73,7 @@ class Bind extends Component  {
                         <tbody>
                             <tr>
                                 <td>Submission ID</td>
-                                <td>{id[4]}</td>
+                                <td>{submissions.submission_id}</td>
                             </tr>
                             <tr>
                                 <td>Company Name</td>
@@ -92,12 +94,12 @@ class Bind extends Component  {
                             <p>APPLICATION</p>
                             <p className='click-on-the-button'>Click on the button below to upload the sign application</p>
                         </div>
-                        <FileUploadPage></FileUploadPage>
+                        <FileUploadPage />
                     </div>
                 </div>
                 <div className="buttons-div">
-                    
                     <GoBack>Back</GoBack>
+                    <button className='button' onClick={this.handleButtonClicked.bind(this)}> BIND SUBMISSION</button>
                 </div>
             </div>
         )

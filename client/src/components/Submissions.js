@@ -76,7 +76,7 @@ class Submissions extends Component  {
                                 <td>{
                                         submission.application != 'False' ? submission.application: 
                                         <Nav.Item>
-                                            <Nav.Link href={"/bound/"+submission.submission_id}>Click Here to Upload</Nav.Link>
+                                            <Nav.Link href={"/bind/"+submission.submission_id}>Click Here to Upload</Nav.Link>
                                         </Nav.Item>
                                     }
                                 </td>

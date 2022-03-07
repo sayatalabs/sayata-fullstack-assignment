@@ -76,8 +76,10 @@ def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @blueprint.route('/file-upload', methods=['POST'])
+@cross_origin()
 def upload_file():
     with current_app.app_context():
+        print('Request data here: {}'.format(request.args))
         current_app.config['UPLOAD_FOLDER'] = UPLOAD_PATH
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -94,9 +96,9 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-            current_app.logger.error('upload_file - File successfully uploaded')
+            current_app.logger.info('upload_file - File successfully uploaded')
             resp = jsonify({'message' : 'File successfully uploaded'})
-            resp.status_code = 201
+            resp.status_code = 200
             return resp
         else:
             resp = jsonify({'message' : 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'})
@@ -104,17 +106,22 @@ def upload_file():
             resp.status_code = 400
             return resp
 
-
-@blueprint.route('/bind-application/<submission_id>', methods=['GET'])
+@blueprint.route('/bind-application/<submission_id>/<file_name>', methods=['GET'])
 @cross_origin()
-def mark_submission_as_bind(submission_id):
+def mark_submission_as_bind(submission_id,filename):
     data = read_data_from_file_db()
-    print(type(data))
     for obj in data:
         if obj['submission_id'] == submission_id:
             current_app.logger.info('Find Submission: {}'.format(obj))
             obj['status'] = "BOND"
+            obj['application'] = filename
+    print(data)
     with open(CSV_DATABASE_PATH, 'w') as writeFile:
-        writer = csv.writer(writeFile)
-        writer.writerows(data)
-    
+        keys = data[0].keys()
+        dict_writer = csv.DictWriter(writeFile, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(data)
+    resp = jsonify({'message' : 'Submission {} updated to Bond'.format(submission_id)})
+    resp.status_code = 200
+
+    return resp

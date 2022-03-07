@@ -5,12 +5,12 @@ function FileUploadPage() {
     const [file, setFile] = useState()
 
     function handleChange(event) {
-      setFile(event.target.files[0])
+      setFile(event.target.files[0]);
     }
     
     function handleSubmit(event) {
       event.preventDefault()
-      const url = 'http://localhost:8000/api/file-upload';
+      const URL_FILE_UPLOAD = 'http://localhost:8000/api/file-upload';
       const formData = new FormData();
       formData.append('file', file);
       formData.append('fileName', file.name);
@@ -19,8 +19,14 @@ function FileUploadPage() {
           'content-type': 'multipart/form-data',
         },
       };
-      axios.post(url, formData, config).then((response) => {
-        console.log(response.data);
+      axios.post(URL_FILE_UPLOAD, formData, config).then((response) => {
+        console.log(response.data,response.status);
+        if (response.status == 200) {
+            alert(response.data.message);
+        }
+        else {
+            alert(response.data.message);
+        }
       });
   
     }
