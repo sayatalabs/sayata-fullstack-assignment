@@ -9,7 +9,6 @@ from db_helpers import read_data_from_file_db,write_sumbission_to_file_db,conver
 blueprint = Blueprint('api', __name__, url_prefix='/api')
 CSV_DATABASE_PATH=r"C:\Users\JOE\Documents\GitHub\sayata-fullstack-assignment\server\mock_data_csv.csv"
 UPLOAD_PATH = r'C:\Users\JOE\Documents\GitHub\sayata-fullstack-assignment\server\uploads'
-
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 # Avoid Cross-origin problems:
@@ -17,7 +16,6 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 def after_request(response):
     header = response.headers
     header['Access-Control-Allow-Origin','Access-Control-Allow-Headers'] = '*'
-    # Other headers can be added here if required
     return response
 
 @blueprint.route('/submissions', methods=['GET'])
@@ -45,9 +43,11 @@ def get_submission_by_id(submission_id):
     in real life,Will run a SQL/NoSQL query.
     """
     current_app.logger.info('START: get_submission_by_id for id: {}'.format(submission_id))
-    data = read_data_from_file_db()
+    try:
+        data = read_data_from_file_db()
+    except TypeError as e:
+        current_app.logger.error(e) 
     for obj in data:
-        print(obj)
         if obj['submission_id'] == submission_id:
             current_app.logger.info('Find Submission: {}'.format(obj))
             return jsonify(obj)
@@ -59,8 +59,6 @@ def get_submission_by_id(submission_id):
 def create_submission():
     current_app.logger.info('START: create_submission')
     data = request.json
-    print(data)
-    #json_object = json.dumps(data, indent = 4)
     submission = convert_json_to_submission(data)
     if submission:
         if write_sumbission_to_file_db(submission) != 0:
@@ -76,6 +74,7 @@ def allowed_file(filename):
 @cross_origin()
 def upload_file():
     with current_app.app_context():
+        current_app.logger.info('START: upload_file')
         current_app.config['UPLOAD_FOLDER'] = UPLOAD_PATH
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -112,7 +111,6 @@ def mark_submission_as_bind(submission_id,file_name):
             current_app.logger.info('Find Submission: {}'.format(obj))
             obj['status'] = "BOND"
             obj['application'] = file_name
-    print(data)
     with open(CSV_DATABASE_PATH, 'w') as writeFile:
         keys = data[0].keys()
         dict_writer = csv.DictWriter(writeFile, keys)
