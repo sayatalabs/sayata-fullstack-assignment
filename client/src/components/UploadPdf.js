@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
-function FileUploadPage() {
+function FileUploadPage({getDataFromChild}) {
     const [file, setFile] = useState()
 
     function handleChange(event) {
       setFile(event.target.files[0]);
+      getDataFromChild(event.target.files[0].name);
     }
     
     function handleSubmit(event) {
@@ -14,13 +15,16 @@ function FileUploadPage() {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('fileName', file.name);
+      getDataFromChild(file.name)
+      var url  = window.location.href;
+      var id = url.split('/');
+      formData.append('submissionID', id[4]);
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
         },
       };
       axios.post(URL_FILE_UPLOAD, formData, config).then((response) => {
-        console.log(response.data,response.status);
         if (response.status == 200) {
             alert(response.data.message);
         }

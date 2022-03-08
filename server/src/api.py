@@ -1,18 +1,15 @@
 import os
 import csv
-import random  
-from flask import Blueprint, jsonify,current_app,request,Response, send_file, redirect, url_for,render_template
+from flask import Blueprint, jsonify,current_app,request,Response
 from flask_cors import  cross_origin
-from submission import Submission
 from werkzeug.utils import secure_filename
-from db_helpers import read_data_from_file_db,write_sumbission_to_file_db,convert_json_to_submission,get_all_ids_from_db,prevent_not_unique_id
+from db_helpers import read_data_from_file_db,write_sumbission_to_file_db,convert_json_to_submission
 
 
 blueprint = Blueprint('api', __name__, url_prefix='/api')
 CSV_DATABASE_PATH=r"C:\Users\JOE\Documents\GitHub\sayata-fullstack-assignment\server\mock_data_csv.csv"
+UPLOAD_PATH = r'C:\Users\JOE\Documents\GitHub\sayata-fullstack-assignment\server\uploads'
 
-
-UPLOAD_PATH = 'C:/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 # Avoid Cross-origin problems:
@@ -79,7 +76,6 @@ def allowed_file(filename):
 @cross_origin()
 def upload_file():
     with current_app.app_context():
-        print('Request data here: {}'.format(request.args))
         current_app.config['UPLOAD_FOLDER'] = UPLOAD_PATH
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -106,15 +102,16 @@ def upload_file():
             resp.status_code = 400
             return resp
 
-@blueprint.route('/bind-application/<submission_id>/<file_name>', methods=['GET'])
+@blueprint.route('/bind-submission/<submission_id>/<file_name>', methods=['GET'])
 @cross_origin()
-def mark_submission_as_bind(submission_id,filename):
+def mark_submission_as_bind(submission_id,file_name):
+    current_app.logger.info('START: mark_submission_as_bind ID:{} FileName: {}'.format(submission_id,file_name))
     data = read_data_from_file_db()
     for obj in data:
         if obj['submission_id'] == submission_id:
             current_app.logger.info('Find Submission: {}'.format(obj))
             obj['status'] = "BOND"
-            obj['application'] = filename
+            obj['application'] = file_name
     print(data)
     with open(CSV_DATABASE_PATH, 'w') as writeFile:
         keys = data[0].keys()
@@ -123,5 +120,4 @@ def mark_submission_as_bind(submission_id,filename):
         dict_writer.writerows(data)
     resp = jsonify({'message' : 'Submission {} updated to Bond'.format(submission_id)})
     resp.status_code = 200
-
     return resp

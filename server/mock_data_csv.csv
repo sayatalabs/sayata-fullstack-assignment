@@ -1,8 +1,9 @@
-submission_id,company_name,annual_revenue,physical_address,status,application
-11111,company1,100000,address1,BOND,False
-22222,company2,200000,address2,BOND,False
-33333,company3,300000,address3,NEW,False
-44444,company4,400000,address4,NEW,False
-55555,company5,500000,address5,NEW,False
-66666,company6,600000,address6,NEW,False
-77777,company7,700000,address7,NEW,False
+submission_id,company_name,annual_revenue,physical_address,status,application
+11111,company1,100000,address1,BOND,False
+22222,company2,200000,address2,BOND,False
+33333,company3,300000,address3,NEW,False
+44444,company4,400000,address4,NEW,False
+55555,company5,500000,address5,NEW,False
+66666,company6,600000,address6,BOND,T16d35a6.pdf
+77777,company7,700000,address7,NEW,False
+
