@@ -7,8 +7,9 @@ from db_helpers import read_data_from_file_db,write_sumbission_to_file_db,conver
 
 
 blueprint = Blueprint('api', __name__, url_prefix='/api')
-CSV_DATABASE_PATH=r"C:\Users\JOE\Documents\GitHub\sayata-fullstack-assignment\server\mock_data_csv.csv"
-UPLOAD_PATH = r'C:\Users\JOE\Documents\GitHub\sayata-fullstack-assignment\server\uploads'
+#CSV_DATABASE_PATH=r"C:\Users\JOE\Documents\GitHub\sayata-fullstack-assignment\server\mock_data_csv.csv"
+CSV_DATABASE_PATH='server\mock_data_csv.csv'
+UPLOAD_PATH = 'server\uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 # Avoid Cross-origin problems:
