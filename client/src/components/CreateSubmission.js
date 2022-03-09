@@ -1,4 +1,4 @@
-import React, { Component,useState } from 'react';
+import React, { Component } from 'react';
 import './createSubmission.css'
 import axios from 'axios';
 import Navbar from './Navbar';

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
 import { useNavigate } from "react-router-dom";
@@ -27,27 +27,13 @@ function GoToPath() {
     );
 }
 
+function Submissions() {
+    const [data, setData] = useState([]);
 
-class Submissions extends Component  {
-    constructor(props) {
-        super(props);
-        this.state = {
-          isFetching: false,
-          submissions: []
-        };
-      }
-    async  componentDidMount() {
-        try {
-            this.setState({...this.state, isFetching: true});
-            const response = await axios.get(SUBMISSIONS_LIST_URL);
-            this.setState({submissions: response.data, isFetching: false});
-        } catch (e) {
-            console.log(e);
-            this.setState({...this.state, isFetching: false});
-        }
-    };
-      render() {
-          const submissions = this.state.submissions;
+    useEffect(async () => {
+        const response = await axios.get(SUBMISSIONS_LIST_URL);
+        setData(response.data);
+    },[]);
         return (
             <div className="App">
                 <div>
@@ -65,7 +51,7 @@ class Submissions extends Component  {
                         <th>Annual Revenue</th>
                         <th>Signed Application</th>
                     </tr>
-                        {submissions.map((submission,key) => {
+                        {data.map((submission,key) => {
                         return(
                             <tr key={submission.submission_id}>
                                 <td>{submission.submission_id}</td>
@@ -91,6 +77,4 @@ class Submissions extends Component  {
             </div>
         );
       }
-        
-}
 export default Submissions;

@@ -15,7 +15,7 @@ Dillinger uses a number of open source projects to work properly:
 
 - ReactJS - Frontend - Web Framework written in Javascript.
 - Flask - Server side -  framework written in Python. 
-- 
+
 ## Installation
 
 This application requires [Node.js](https://nodejs.org/) v10+ to run.
