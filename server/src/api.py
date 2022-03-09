@@ -1,15 +1,14 @@
 import os
 import csv
+
 from flask import Blueprint, jsonify,current_app,request,Response
 from flask_cors import  cross_origin
 from werkzeug.utils import secure_filename
-from db_helpers import read_data_from_file_db,write_sumbission_to_file_db,convert_json_to_submission
+from db_helpers import read_data_from_file_db,write_sumbission_to_file_db,convert_json_to_submission,get_config_values
 
 
 blueprint = Blueprint('api', __name__, url_prefix='/api')
 #CSV_DATABASE_PATH=r"C:\Users\JOE\Documents\GitHub\sayata-fullstack-assignment\server\mock_data_csv.csv"
-CSV_DATABASE_PATH='server\mock_data_csv.csv'
-UPLOAD_PATH = 'server\uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 # Avoid Cross-origin problems:
@@ -74,6 +73,7 @@ def allowed_file(filename):
 @blueprint.route('/file-upload', methods=['POST'])
 @cross_origin()
 def upload_file():
+    CSV_DATABASE_PATH,UPLOAD_PATH = get_config_values()
     with current_app.app_context():
         current_app.logger.info('START: upload_file')
         current_app.config['UPLOAD_FOLDER'] = UPLOAD_PATH
@@ -106,6 +106,7 @@ def upload_file():
 @cross_origin()
 def mark_submission_as_bind(submission_id,file_name):
     current_app.logger.info('START: mark_submission_as_bind ID:{} FileName: {}'.format(submission_id,file_name))
+    CSV_DATABASE_PATH,UPLOAD_PATH = get_config_values()
     data = read_data_from_file_db()
     for obj in data:
         if obj['submission_id'] == submission_id:

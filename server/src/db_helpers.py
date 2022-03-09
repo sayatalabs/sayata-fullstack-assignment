@@ -3,14 +3,36 @@ This file contains all function for database,
 The solution uses a CSV file as a mock up data.
 """
 import csv
-import random  
+import random
+import json
+import pathlib
+import os
 from flask import Blueprint,current_app
 from submission import Submission
 
 blueprint = Blueprint('api', __name__, url_prefix='/api')
-CSV_DATABASE_PATH=r"C:\Users\JOE\Documents\GitHub\sayata-fullstack-assignment\server\mock_data_csv.csv"
 
 
+def get_config_values():
+    with current_app.app_context():
+        config_file_path = ''
+        current_dir =  pathlib.Path().resolve()
+        print(current_dir)
+        onlyfiles = [f for f in os.listdir(current_dir) if os.path.isfile(os.path.join(current_dir, f))]
+        for file in onlyfiles:
+            if file == 'config.json':
+                config_file_path = file
+                print('Found config file {}'.format(config_file_path))
+                break
+    if config_file_path:
+        with open(config_file_path, 'r') as f:
+            config = json.load(f)
+            CSV_DATABASE_PATH = config['DB_PATH']
+            UPLOAD_PATH = config['UPLOAD_PATH']
+            return CSV_DATABASE_PATH,UPLOAD_PATH
+    else:
+        current_app.logger('Could not found config file for application - exit')
+        raise FileNotFoundError('Could not found config file for application - exit')
 
 def read_data_from_file_db():
     """This function reads all submissions from file and returns it .
@@ -18,6 +40,7 @@ def read_data_from_file_db():
         :rtype: dict
     """
     current_app.logger.info('START: read_data_from_file_db')
+    CSV_DATABASE_PATH,UPLOAD_PATH = get_config_values()
     data = {}
     with open(CSV_DATABASE_PATH,encoding='utf-8') as csvf:
         csvReader = csv.DictReader(csvf)
@@ -68,6 +91,7 @@ def read_data_from_file_db():
 
 def write_sumbission_to_file_db(sumission_object):
     current_app.logger.info('START: write_sumbission_to_file_db for submission ID: {}'.format(sumission_object.submission_id))
+    CSV_DATABASE_PATH,UPLOAD_PATH = get_config_values()
     with open(CSV_DATABASE_PATH,'a', newline='') as f:
         writer = csv.writer(f)
         row = [sumission_object.submission_id,sumission_object.company_name,
@@ -104,6 +128,7 @@ def prevent_not_unique_id(submission_id,id_list):
 
 def get_all_ids_from_db():
     current_app.logger.info('START: get_all_ids_from_db')
+    CSV_DATABASE_PATH,UPLOAD_PATH = get_config_values()
     id_list = []
     with open(CSV_DATABASE_PATH, 'r',encoding='utf-8') as csvf:
         file = csv.DictReader(csvf)
