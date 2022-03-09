@@ -95,8 +95,8 @@ def write_sumbission_to_file_db(sumission_object):
     with open(CSV_DATABASE_PATH,'a', newline='') as f:
         writer = csv.writer(f)
         row = [sumission_object.submission_id,sumission_object.company_name,
-                        sumission_object.physical_address,sumission_object.annual_revenue,
-                        sumission_object.status]
+                        sumission_object.annual_revenue,sumission_object.physical_address,
+                        sumission_object.status,'False']
         writer.writerow(row)
         current_app.logger.info('Insert to DB - Success!')
     return sumission_object.submission_id
