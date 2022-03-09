@@ -1,0 +1,49 @@
+.nav-bar-container-light {
+    height: 95px;
+    width: 100%;
+    background: linear-gradient(36.07deg, #457378 0%, #0EABB7 55.47%, #18B4BB 74.65%, #53EAD1 100%);
+  }
+  
+  .website-logo {
+    height: 39.15px;
+    width: 116.35px;
+    opacity: 0.8;
+  }
+div#logo {
+    height: 37.84px;
+    width: 38.3px;
+    transform: rotate(2deg);
+    margin-left: 93%;
+}
+  .middle-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    padding: 0px;
+  }
+  
+  .list-item {
+    font-size: 16px;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .link-light {
+    color: #171f46;
+    text-decoration: none;
+  }
+  
+  .theme-button {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border-style: none;
+    outline: none;
+  }
+  
+  .theme-img {
+    width: 40px;
+    height: 40px;
+  }

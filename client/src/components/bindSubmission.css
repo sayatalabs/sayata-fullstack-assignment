@@ -1,0 +1,31 @@
+.application-section {
+    height: 137px;
+    width: 627px;
+}
+.column-copy {
+    box-sizing: border-box;
+    height: 137px;
+    width: 627px;
+    border: 1px solid #B7B7B7;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+  }
+.click-on-the-button {
+    height: 15px;
+    width: 312px;
+    color: rgba(29,43,48,0.74);
+    font-family: "Open Sans";
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 15px;
+}
+.fill-text {
+    height: 17px;
+    width: 550px;
+    color: #42767C;
+    font-family: "Open Sans";
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.72px;
+    line-height: 17px;
+}
