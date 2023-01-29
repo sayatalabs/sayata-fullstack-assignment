@@ -25,11 +25,6 @@ function App() {
       <Route path="/" element={<Submissions />} />
       <Route path="/bind" element={<BindSubmission />} />
       <Route path="/new" element={<NewSubmission />} />
-      {/* <Route path="/test" element={<NavBar />} /> */}
-      <Route path="/:id">
-        <Route index element={<h1>Show</h1>} />
-        <Route path="edit" element={<h1>Edit</h1>} />
-      </Route>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
