@@ -27,4 +27,4 @@
 1. Install Poetry. Official Poetry website link below:
    - [Poetry](https://python-poetry.org/docs/#installation)
 2. Run `poetry install` in the root directory of the project to install the server dependencies.
-3. Run `poetry run python -m src` in the root directory of the project to start the server.
+3. Run `poetry run python -m src` in the `server` directory of the project to start the server.
