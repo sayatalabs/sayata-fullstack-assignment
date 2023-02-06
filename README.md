@@ -51,9 +51,9 @@ purchase insurance. Submission fields should include -
 * Company name - The company name. e.g. “Sayata Labs Ltd”.
 * Physical address - The company's main office address. e.g. “177 Huntington Ave, Boston, MA 02115, USA”
 * Annual revenue - The company’s revenue last year in US Dollars. e.g. 1000000.
-* Status - (Either NEW or BOUND): The status of the submission. Default is set to NEW. BOUND means, submission has been
-  bound (insurance coverage is active for that company).
-* Signed application - nullable BLOB. Defaults to null. After binding, it should hold the PDF of the signed application.
+* Status - (Either NEW or UPLOADED): The status of the submission. Default is set to NEW. UPLOADED means, application file was
+  uploaded for this submission.
+* Application file - nullable BLOB. Defaults to null. After uploading, it should hold the PDF of the signed application.
 
 ## The client side
 
@@ -62,7 +62,7 @@ The client is a React web application that allows the broker to perform the foll
 1. List all the submissions in the system.
 2. Create a new submission.
 3. Update an existing submission.
-4. Bind an existing submission.
+4. Upload an application file.
 
 For that matter the application should contain the following main pages:
 
@@ -73,11 +73,10 @@ For that matter the application should contain the following main pages:
     1. When creating a new submission - will show the appropriate submission fields and allow filling them to create a
        new submission.
     2. When entering an existing submission - will show the appropriate submission fields and allow updating the
-       submission as long as it hasn't been bound. If the submission is already bound - all fields should be disabled.
-3. [Bind submission page](https://projects.invisionapp.com/d/main?origin=v7#/console/21795414/461552118/comments?scrollOffset=0)
-    1. List the submission fields for verification, allows uploading a signed application and binding the submission.
+       submission as long as the application file wasn't uploaded yet. If the application file was uploaded - all fields 
+       should be disabled.
 
-Once a submission has been bound no further changes may be performed on it.
+Once an application file was uploaded to a submission further changes may be performed on it.
 
 ## The server side API
 
